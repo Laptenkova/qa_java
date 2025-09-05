@@ -45,8 +45,8 @@ public class LionTest {
     @Before
     public void setUp() throws Exception {
         // Настраиваем mock для большинства тестов
-        when(feline.getKittens()).thenReturn(3);
-        when(feline.getFood("Хищник")).thenReturn(List.of("Мясо", "Птицы"));
+        when(feline.getKittens()).thenReturn(1);
+        when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
 
         // Создаем льва для тестов, которые не требуют особой настройки
         lion = new Lion("Самец", feline);
@@ -94,13 +94,20 @@ public class LionTest {
     /**
      * Проверяет, что метод {@link Lion#getKittens()} возвращает количество котят,
      * заданное мок-объектом {@link Feline}.
-     *
      */
     @Test
-    public void getKittensTest() {
+    public void getKittensReturnsCorrectValueTest() {
         int actualKittens = lion.getKittens();
 
-        assertEquals("Lion должен возвращать количество котят, полученных от Feline", 3, actualKittens);
+        assertEquals("Lion должен возвращать количество котят, полученных от Feline", 1, actualKittens);
+    }
+
+    /**
+     * Проверяет, что что Lion обращается к Feline за информацией о котятах.
+     */
+    @Test
+    public void getKittensCallsFelineMethodTest() {
+        lion.getKittens();
         verify(feline).getKittens();
     }
 
@@ -111,11 +118,23 @@ public class LionTest {
      * @throws Exception если метод выбрасывает исключение
      */
     @Test
-    public void getFoodTest() throws Exception {
-        List<String> expectedFood = List.of("Мясо", "Птицы");
+    public void getFoodReturnsCorrectFoodTest() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         List<String> actualFood = lion.getFood();
 
         assertEquals("Lion должен возвращать еду для хищника, полученную от Feline", expectedFood, actualFood);
+    }
+
+    /**
+     * Тест проверяет, что метод getFood вызывает метод getFood("Хищник") у объекта Feline.
+     * Проверяет корректность взаимодействия между объектами.
+     *
+     * @throws Exception если метод getFood выбрасывает исключение
+     */
+    @Test
+    public void getFoodCallsGetFoodTest() throws Exception {
+        lion.getFood();
+
         verify(feline).getFood("Хищник");
     }
 }

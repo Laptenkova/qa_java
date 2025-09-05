@@ -44,7 +44,7 @@ public class LionGetFoodParameterizedTest {
      *
      * @return коллекция тестовых данных в формате {inputFood, expectedFood}
      */
-    @Parameterized.Parameters()
+    @Parameterized.Parameters(name = "Тестовые данные: ожидание={0}, результат={1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {List.of("Мясо"), List.of("Мясо")},

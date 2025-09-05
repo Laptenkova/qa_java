@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Параметризованный тестовый класс для проверки метода {@link Lion#getKittens()}.
@@ -49,7 +51,7 @@ public class LionGetKittensParameterizedTest {
      *
      * @return коллекция наборов тестовых параметров
      */
-    @Parameterized.Parameters()
+    @Parameterized.Parameters(name = "Тестовые данные: ожидание={0}, результат={1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {1, 1},
@@ -67,12 +69,8 @@ public class LionGetKittensParameterizedTest {
      */
     @Test
     public void testGetKittensWithDifferentValues() throws Exception {
-        Feline feline = new Feline() {
-            @Override
-            public int getKittens() {
-                return inputKittens;
-            }
-        };
+        Feline feline = mock(Feline.class);
+        when(feline.getKittens()).thenReturn(inputKittens);
 
         Lion lion = new Lion("Самец", feline);
         int actualKittens = lion.getKittens();

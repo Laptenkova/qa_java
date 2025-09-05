@@ -43,18 +43,31 @@ public class CatTest {
     }
 
     /**
-     * Тест проверяет, что метод getFood возвращает список еды, полученный от Feline.eatMeat.
+     * Тест проверяет, что метод getFood возвращает корректный список еды для хищника,
+     * соответствующий данным от Feline.eatMeat.
      *
      * @throws Exception если метод eatMeat выбрасывает исключение
      */
     @Test
-    public void getFoodTest() throws Exception {
-        List<String> expectedFood = List.of("Мясо", "Рыба");
+    public void getFoodReturnsCorrectFoodTest() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         when(feline.eatMeat()).thenReturn(expectedFood);
-
         List<String> food = cat.getFood();
 
         assertEquals("Должен возвращать еду для хищника", expectedFood, food);
+    }
+
+    /**
+     * Тест проверяет, что метод getFood вызывает метод eatMeat у объекта Feline.
+     * Проверяет корректность взаимодействия между объектами.
+     *
+     * @throws Exception если метод eatMeat выбрасывает исключение
+     */
+    @Test
+    public void getFoodCallsEatMeatTest() throws Exception {
+        when(feline.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        cat.getFood();
+
         verify(feline).eatMeat();
     }
 

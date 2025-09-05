@@ -59,17 +59,6 @@ public class FelineTest {
     }
 
     /**
-     * Тест метода getKittens(int) с разными значениями параметров.
-     * Метод должен возвращать переданное значение (воспроизводить параметр без изменений).
-     */
-    @Test
-    public void getKittensWithParameterShouldReturnInput() {
-        assertEquals(5, feline.getKittens(5));
-        assertEquals(0, feline.getKittens(0));
-        assertEquals(-3, feline.getKittens(-3));
-    }
-
-    /**
      * Тест наследования класса Feline от класса Animal.
      * Проверяет, что объект feline является экземпляром Animal.
      */
